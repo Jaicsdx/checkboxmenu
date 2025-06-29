@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Daily Habit Tracker</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+    }
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+    }
+  </style>
+</head>
+<body>
+  <h2>✅ Mark Today’s Habits</h2>
+
+  <div id="habits">
+    <label><input type="checkbox" value="0"> Exercise</label>
+    <label><input type="checkbox" value="1"> Calories per day</label>
+    <label><input type="checkbox" value="2"> Jump Rope</label>
+    <label><input type="checkbox" value="5"> Breathing Exercise</label>
+    <label><input type="checkbox" value="9"> Sunlight</label>
+    <!-- Add more as needed -->
+  </div>
+
+  <button onclick="submitHabits()">Submit</button>
+
+  <p id="result"></p>
+
+  <script>
+    function submitHabits() {
+      const selected = Array.from(document.querySelectorAll('input[type=checkbox]:checked'))
+        .map(cb => cb.value);
+      
+      if (selected.length === 0) {
+        document.getElementById("result").textContent = "Please select at least one habit.";
+        return;
+      }
+
+      const url = `https://script.google.com/macros/s/AKfycbyx9gSKvEehYolFdzV4JHeW_EcyInGW1OnWV0ylTpfYOnfQNbP0CogsN9gxocS5dW9q9Q/exec?indexes=${selected.join(",")}`;
+
+      fetch(url)
+        .then(response => response.text())
+        .then(text => {
+          document.getElementById("result").textContent = text;
+        })
+        .catch(err => {
+          document.getElementById("result").textContent = "❌ Error submitting habits.";
+          console.error(err);
+        });
+    }
+  </script>
+</body>
+</html>
