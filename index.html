@@ -43,7 +43,8 @@
     <label><input type="checkbox" value="10"> Read Two Books</label>
     <label><input type="checkbox" value="23"> Grocery and Shopping</label>
     <label><input type="checkbox" value="26"> Fast Food (Avoid)</label>
-    <!-- Add more habits using correct index from getHabitList() -->
+    <!-- 🔁 Add more rows using the correct index from your getHabitList -->
+    
     <button type="button" onclick="submitHabits()">Submit</button>
   </form>
 
@@ -61,15 +62,9 @@
 
       const url = "https://script.google.com/macros/s/AKfycbwR0cevtBhy_41Avzr2LJ2L9cOynEZ1AyHQeGF-WpT0XM754kenix-gq2pN7QMSVplITg/exec?indexes=" + selected.join(",");
 
-      fetch(url)
-        .then(response => response.text())
-        .then(text => {
-          document.getElementById("result").textContent = text;
-        })
-        .catch(error => {
-          document.getElementById("result").textContent = "❌ Error updating habits.";
-          console.error(error);
-        });
+      // ✅ This bypasses CORS and works reliably
+      window.open(url, '_blank');
+      document.getElementById("result").textContent = "✅ Submitted! It opened in a new tab.";
     }
   </script>
 </body>
