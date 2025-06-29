@@ -1,35 +1,51 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Daily Habit Tracker</title>
+  <title>✅ Daily Habit Tracker</title>
   <style>
     body {
-      font-family: sans-serif;
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: auto;
       padding: 20px;
+    }
+    h2 {
+      color: #2e7d32;
     }
     label {
       display: block;
-      margin-bottom: 10px;
+      margin: 8px 0;
     }
     button {
       margin-top: 20px;
       padding: 10px 20px;
+      background-color: #2e7d32;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    #result {
+      margin-top: 20px;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
-  <h2>✅ Mark Today’s Habits</h2>
+  <h2>✅ Mark Today's Completed Habits</h2>
 
-  <div id="habits">
+  <form id="habitForm">
     <label><input type="checkbox" value="0"> Exercise</label>
     <label><input type="checkbox" value="1"> Calories per day</label>
     <label><input type="checkbox" value="2"> Jump Rope</label>
     <label><input type="checkbox" value="5"> Breathing Exercise</label>
     <label><input type="checkbox" value="9"> Sunlight</label>
-    <!-- Add more as needed -->
-  </div>
-
-  <button onclick="submitHabits()">Submit</button>
+    <label><input type="checkbox" value="10"> Read Two Books</label>
+    <label><input type="checkbox" value="23"> Grocery and Shopping</label>
+    <label><input type="checkbox" value="26"> Fast Food (Avoid)</label>
+    <!-- Add more habits using correct index from getHabitList() -->
+    <button type="button" onclick="submitHabits()">Submit</button>
+  </form>
 
   <p id="result"></p>
 
@@ -37,22 +53,22 @@
     function submitHabits() {
       const selected = Array.from(document.querySelectorAll('input[type=checkbox]:checked'))
         .map(cb => cb.value);
-      
+
       if (selected.length === 0) {
-        document.getElementById("result").textContent = "Please select at least one habit.";
+        document.getElementById("result").textContent = "⚠️ Please select at least one habit.";
         return;
       }
 
-      const url = `https://script.google.com/macros/s/AKfycbyx9gSKvEehYolFdzV4JHeW_EcyInGW1OnWV0ylTpfYOnfQNbP0CogsN9gxocS5dW9q9Q/exec?indexes=${selected.join(",")}`;
+      const url = "https://script.google.com/macros/s/AKfycbxcDbIF5ne08ow_REozdVfqaXYpaLqLsKYBwD63VxGFG5BcsHJpEBcjOcO6OevwCfLVHg/exec?indexes=" + selected.join(",");
 
       fetch(url)
         .then(response => response.text())
         .then(text => {
           document.getElementById("result").textContent = text;
         })
-        .catch(err => {
-          document.getElementById("result").textContent = "❌ Error submitting habits.";
-          console.error(err);
+        .catch(error => {
+          document.getElementById("result").textContent = "❌ Error updating habits.";
+          console.error(error);
         });
     }
   </script>
