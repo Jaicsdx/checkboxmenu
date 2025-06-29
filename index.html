@@ -41,7 +41,7 @@
   <hr>
   <h2>💵 Enter Values (Optional)</h2>
   <form id="valueForm">
-    <label>Uber Rides ($): <input type="number" name="RIDES" /></label>
+    <label>Uber ($): <input type="number" name="uber" /></label>
     <label>Gas ($): <input type="number" name="gas" /></label>
     <label>Lyft ($): <input type="number" name="lyft" /></label>
     <!-- Add more input fields here if needed -->
@@ -77,7 +77,6 @@
       { name: "Home maintenance", row: 57 }, { name: "Driving", row: 69 },
       { name: "DELIVERIES", row: 70 }, { name: "gas", row: 72 },
       { name: "Lyft", row: 73 }, { name: "per day", row: 63 },
-      { name: "RIDES", row: 71 },
       { name: "work", row: 77 }, { name: "OVERTIME", row: 78 },
       { name: "SICK", row: 68 }, { name: "pay day", row: 69 },
       { name: "Quality issues", row: 81 },
@@ -141,7 +140,7 @@
         return;
       }
 
-      const url = "https://script.google.com/macros/s/AKfycbyfnqS8dXMTQmUCz4FWFsQWGEP1TO9mY6gkoC5PsAm9CsDI6sVLpleQuq_uyUUx8BXKEw/exec?" + params.join("&");
+      const url = "https://script.google.com/macros/s/AKfycbwR0cevtBhy_41Avzr2LJ2L9cOynEZ1AyHQeGF-WpT0XM754kenix-gq2pN7QMSVplITg/exec?" + params.join("&");
       window.open(url, "_blank");
       document.getElementById("result").textContent = "✅ Submitted!";
     }
