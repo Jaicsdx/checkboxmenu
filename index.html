@@ -36,9 +36,15 @@
 </head>
 <body>
   <h2>✅ Mark Today's Completed Habits</h2>
+  <form id="habitForm" class="grid"></form>
 
-  <form id="habitForm" class="grid">
-    <!-- Dynamically generated in JS -->
+  <hr>
+  <h2>💵 Enter Values (Optional)</h2>
+  <form id="valueForm">
+    <label>Uber ($): <input type="number" name="uber" /></label>
+    <label>Gas ($): <input type="number" name="gas" /></label>
+    <label>Lyft ($): <input type="number" name="lyft" /></label>
+    <!-- Add more input fields here if needed -->
   </form>
 
   <button onclick="submitHabits()">Submit</button>
@@ -116,15 +122,27 @@
       const selected = Array.from(document.querySelectorAll('input[type=checkbox]:checked'))
         .map(cb => cb.value);
 
-      if (selected.length === 0) {
-        document.getElementById("result").textContent = "⚠️ Please select at least one habit.";
+      const formData = new FormData(document.getElementById("valueForm"));
+      const params = [];
+
+      if (selected.length > 0) {
+        params.push("indexes=" + selected.join(","));
+      }
+
+      for (const [key, val] of formData.entries()) {
+        if (val !== "") {
+          params.push(`${encodeURIComponent(key)}=${encodeURIComponent(val)}`);
+        }
+      }
+
+      if (params.length === 0) {
+        document.getElementById("result").textContent = "⚠️ Please check a habit or enter a value.";
         return;
       }
 
-      const url = "https://script.google.com/macros/s/AKfycbwR0cevtBhy_41Avzr2LJ2L9cOynEZ1AyHQeGF-WpT0XM754kenix-gq2pN7QMSVplITg/exec?indexes=" + selected.join(",");
-
-      window.open(url, '_blank');
-      document.getElementById("result").textContent = "✅ Submitted! Opened in new tab.";
+      const url = "https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec?" + params.join("&");
+      window.open(url, "_blank");
+      document.getElementById("result").textContent = "✅ Submitted!";
     }
   </script>
 </body>
