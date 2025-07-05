@@ -46,6 +46,7 @@
     <label>Lyft ($): <input type="number" name="lyft" /></label>
     <label>food ($): <input type="number" name="Fast_Food_Order" /></label>
     <label>JUMP ROPE COUNTS ($): <input type="number" name="jump_rope_counts" /></label>
+    <label>MILEAGE ($): <input type="number" name="mileage" /></label>
     <!-- Add more input fields here if needed -->
   </form>
 
@@ -188,7 +189,7 @@
         return;
       }
 
-      const url = "https://script.google.com/macros/s/AKfycbz18Bhb3NcgJ6gdF46pn9pNto6uJftaw24lJtNm8FTJwr0kdQSdkZr9Gq2ljl3jh4fgzA/exec?" + params.join("&");
+      const url = "https://script.google.com/macros/s/AKfycbxQMdubp5Uk6ajhPoG5lCeZMx9rbkwz9KYqypjNrrgxChnHZ76y5UWC9fYt2eUT8ynl/exec" + params.join("&");
       window.open(url, "_blank");
       document.getElementById("result").textContent = "✅ Submitted!";
     }
